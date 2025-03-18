@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.db import models
-from db.engine import engine, SQLModel
+from auth.app.core.db import engine, SQLModel
 
 
 def create_db_and_tables():
@@ -22,3 +22,8 @@ app = FastAPI(
 )
 
 app.include_router()
+
+
+@app.get("")
+async def read_root():
+    return {"message": "Hello World"}
