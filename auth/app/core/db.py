@@ -1,8 +1,9 @@
 from typing import Generator
 from sqlmodel import Session, create_engine, SQLModel
-from core.config import Settings
 
-engine = create_engine(Settings.DB_URL, echo=True)
+sqlite_url = "sqlite:///./auth.db"
+
+engine = create_engine(sqlite_url, echo=True)
 
 
 def get_db() -> Generator:

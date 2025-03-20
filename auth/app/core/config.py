@@ -1,12 +1,11 @@
 import secrets
-from pydantic import AnyHttpUrl, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import AnyHttpUrl
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
     API: str = "/api/v1"
     PROJECT_NAME: str = "Autenticacion"
-    DOMAIN: str
     SECRET_KEY: str = secrets.token_urlsafe(32)
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60  # 60 minutes

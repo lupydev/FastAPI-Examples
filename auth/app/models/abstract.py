@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 import sqlalchemy
 from sqlmodel import Field, SQLModel
 from uuid import UUID, uuid4
