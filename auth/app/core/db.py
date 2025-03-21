@@ -1,5 +1,5 @@
 from typing import Generator
-from sqlmodel import Session, create_engine, SQLModel
+from sqlmodel import Session, create_engine
 
 sqlite_url = "sqlite:///./auth.db"
 

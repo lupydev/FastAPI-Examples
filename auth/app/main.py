@@ -3,7 +3,8 @@ from contextlib import asynccontextmanager
 from .core.config import settings
 from .api.main import api_router
 from .models import user
-from .core.db import engine, SQLModel
+from .core.db import engine
+from sqlmodel import SQLModel
 
 
 def create_db_and_tables():

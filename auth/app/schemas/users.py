@@ -1,9 +1,9 @@
-from typing import Optional
-from pydantic import BaseModel, EmailStr
-from sqlmodel import Field
+from uuid import UUID
+from pydantic import EmailStr
+from sqlmodel import Field, SQLModel
 
 
-class CreateUser(BaseModel):
+class CreateUser(SQLModel):
     username: str = Field(
         nullable=False,
         min_length=2,
@@ -19,14 +19,18 @@ class CreateUser(BaseModel):
     )
 
 
-class UpdateUser(BaseModel):
-    name: Optional[str] = Field(
-        None,
+class UpdateUser(SQLModel):
+    name: str | None = Field(
+        default=None,
         min_length=2,
     )
-    username: Optional[str] = Field(None)
-    email: Optional[EmailStr] = Field(None)
-    password: Optional[str] = Field(
-        None,
-        min_length=3,
-    )
+    username: str | None = None
+    email: EmailStr | None = None
+
+
+class ResponseUser(SQLModel):
+    id: UUID
+    name: str | None = None
+    surname: str | None = None
+    username: str
+    email: EmailStr
