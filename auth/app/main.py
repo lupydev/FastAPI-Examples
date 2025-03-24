@@ -2,9 +2,10 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from .core.config import settings
 from .api.main import api_router
-from .models import user
 from .core.db import engine
 from sqlmodel import SQLModel
+from slowapi.middleware import SlowAPIMiddleware
+from .core.security import limiter
 
 
 def create_db_and_tables():
@@ -24,5 +25,6 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-
+app.state.limiter = limiter
+app.add_middleware(SlowAPIMiddleware)
 app.include_router(api_router, prefix=settings.API)

@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlmodel import Session, select
-
+from ...core.security import limiter
 from ...models.user import User
 from ...core.db import get_db
 from ...schemas.users import ResponseUser, CreateUser
@@ -11,7 +11,9 @@ router = APIRouter()
 @router.post(
     "/", status_code=status.HTTP_201_CREATED, response_model=dict[str, ResponseUser]
 )
+@limiter.limit("5/minute")  # Limita a 5 solicitudes por minuto
 async def create_user(
+    request: Request,
     user: CreateUser,
     db: Session = Depends(get_db),
 ):
@@ -42,6 +44,10 @@ async def create_user(
     status_code=status.HTTP_200_OK,
     response_model=dict[str, list[ResponseUser]],
 )
-async def get_users(db: Session = Depends(get_db)):
+@limiter.limit("20/minute")  # Limita a 20 solicitudes por minuto
+async def get_users(
+    request: Request,
+    db: Session = Depends(get_db),
+):
     users = db.exec(select(User).order_by(User.created_at.desc())).all()
     return {"result": users}
