@@ -34,3 +34,7 @@ class ResponseUser(SQLModel):
     surname: str | None = None
     username: str
     email: EmailStr
+
+
+class UserResponse(SQLModel):
+    user: ResponseUser
