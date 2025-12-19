@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from .api.main import api_routers
 from .infrastructure.config.config import settings
 from .infrastructure.config.db import init_db
 
@@ -19,6 +20,8 @@ app = FastAPI(
     version="0.0.1",
     lifespan=lifespan,
 )
+
+app.include_router(api_routers, prefix=settings.API)
 
 
 @app.get("/health", tags=["Health"])
