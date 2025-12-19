@@ -1,6 +1,7 @@
 from datetime import datetime
 from uuid import UUID
-from pydantic import BaseModel, EmailStr, field_validator, Field
+
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class UserCreateDTO(BaseModel):
@@ -20,9 +21,7 @@ class UserCreateDTO(BaseModel):
 
         special = "!@#$%^&*()_+-=[]{};':\"\\|,.<>/?"
         if not any(c in special for c in v):
-            raise ValueError(
-                f"La contraseña debe incluir al menos un carácter especial: {special}"
-            )
+            raise ValueError(f"La contraseña debe incluir al menos un carácter especial: {special}")
 
         return v
 
