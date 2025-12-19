@@ -5,9 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "alembic>=1.17.2",
     "fastapi[standard]>=0.115.11",
+    "langchain>=1.2.0",
     "openai>=1.92.2",
+    "passlib[argon2]>=1.7.4",
+    "psycopg[binary]>=3.3.2",
     "pydantic-settings>=2.8.1",
+    "python-jose>=3.5.0",
     "ruff>=0.11.0",
     "slowapi>=0.1.9",
     "sqlmodel>=0.0.24",
