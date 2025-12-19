@@ -11,3 +11,7 @@ wheels/
 
 # db
 *.db
+
+.env
+.pytest_cache
+.ruff_cache
