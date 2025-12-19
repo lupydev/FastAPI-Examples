@@ -1,9 +1,10 @@
 from datetime import datetime
 from typing import ClassVar
+from uuid import UUID, uuid4
+
 from pydantic import EmailStr
 from sqlalchemy import Column
-from sqlmodel import DateTime, SQLModel, Field, text
-from uuid import UUID, uuid4
+from sqlmodel import DateTime, Field, SQLModel, text
 
 
 class UserTable(SQLModel, table=True):
