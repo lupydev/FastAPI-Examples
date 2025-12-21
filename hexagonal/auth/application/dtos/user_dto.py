@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 
 class UserCreateDTO(BaseModel):
@@ -27,8 +27,9 @@ class UserCreateDTO(BaseModel):
 
 
 class UserResponseDTO(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: UUID
     email: EmailStr
 
     created_at: datetime
-    is_active: bool
