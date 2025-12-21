@@ -2,10 +2,10 @@ from datetime import datetime
 from uuid import uuid4
 
 from ....domain.exceptions import UserAlreadyExistsException
-from ....domain.models.user import User
+from ....domain.models import User
 from ....domain.ports.security_service import SecurityService
 from ....domain.ports.user_repository import UserRepository
-from ...dtos.user_dto import UserCreateDTO
+from ...dtos import UserCreateDTO, UserResponseDTO
 
 
 class RegisterUserUseCase:
@@ -17,7 +17,7 @@ class RegisterUserUseCase:
         self.user_repository = user_repository
         self.security_service = security_service
 
-    def execute(self, user_data: UserCreateDTO) -> User:
+    def execute(self, user_data: UserCreateDTO) -> UserResponseDTO:
         existing_user = self.user_repository.get_by_email(user_data.email)
         if existing_user:
             raise UserAlreadyExistsException(user_data.email)
@@ -33,4 +33,5 @@ class RegisterUserUseCase:
             updated_at=datetime.now(),
         )
 
-        return self.user_repository.save(new_user)
+        saved_user = self.user_repository.save(new_user)
+        return UserResponseDTO.model_validate(saved_user, from_attributes=True)
